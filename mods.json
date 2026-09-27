@@ -1,21 +1,31 @@
 {
-    "mods": [
-
-        {
-            "name": "Urban Raid",
-            "type": "Map",
-            "version": "1.0",
-            "author": "Fox",
-            "download": "#"
-        },
-
-        {
-            "name": "PMC Enemy Pack",
-            "type": "Enemy",
-            "version": "1.0",
-            "author": "Fox",
-            "download": "#"
-        }
-
-    ]
+  "mods": [
+    {
+      "name": "Urban Raid",
+      "type": "Map",
+      "version": "1.0.0",
+      "author": "Fox",
+      "description": "A tight CQB warehouse map built for close-quarters raids.",
+      "download": "mods/UrbanRaid.tamod",
+      "featured": true
+    },
+    {
+      "name": "PMC Enemy Pack",
+      "type": "Enemy",
+      "version": "1.0.0",
+      "author": "Fox",
+      "description": "Adds a more organized enemy group with stronger loadouts.",
+      "download": "mods/PMCEnemyPack.tamod",
+      "featured": true
+    },
+    {
+      "name": "Suppressed Sidearm Pack",
+      "type": "Weapon",
+      "version": "0.9.0",
+      "author": "Fox",
+      "description": "Weapon pack focused on compact sidearms and stealth use.",
+      "download": "mods/SuppressedSidearmPack.tamod",
+      "featured": false
+    }
+  ]
 }
