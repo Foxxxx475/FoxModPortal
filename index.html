@@ -1,40 +1,315 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fox Mod Portal</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fox Mod Portal</title>
+  <meta name="description" content="Privacy-first community mod portal for Tactical Assault VR." />
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="Fox Mod Portal home">
+      <span class="brand-icon">🦊</span>
+      <span>
+        <strong>Fox Mod Portal</strong>
+        <small>Tactical Assault VR Community Mod Hub</small>
+      </span>
+    </a>
 
-<header>
-    <div class="logo">
-        🦊 Fox Mod Portal
-    </div>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#browse">Browse Mods</a>
+      <a href="#featured">Featured</a>
+      <a href="#maps">Maps</a>
+      <a href="#enemies">Enemies</a>
+      <a href="#weapons">Weapons</a>
+      <a href="#creator-hub">Creator Hub</a>
+      <a href="#docs">Documentation</a>
+      <a href="#faq">FAQ</a>
+      <a href="#submit">Submit Mod</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
 
-    <p>
-        Tactical Assault VR Community Mod Hub
-    </p>
-</header>
+  <main>
+    <section id="home" class="hero">
+      <div>
+        <p class="eyebrow">Standalone-first • Privacy-first • No accounts required</p>
+        <h1>Fox Mod Portal</h1>
+        <p class="hero-copy">
+          A clean community hub for Tactical Assault VR mods. Browse maps, enemy packs, and weapons.
+          Submit mod details locally without creating an account.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#browse">Browse Mods</a>
+          <a class="button secondary" href="#submit">Submit a Mod</a>
+        </div>
+      </div>
 
-<nav>
-    <input 
-        id="search"
-        type="text"
-        placeholder="Search mods..."
-    >
+      <aside class="hero-card">
+        <h2>What this v1 does</h2>
+        <ul>
+          <li>Mod browser with search and filters</li>
+          <li>Featured mods and categories</li>
+          <li>Creator hub and docs</li>
+          <li>Local submission packet generator</li>
+        </ul>
+      </aside>
+    </section>
 
-    <select id="category">
-        <option value="All">All Categories</option>
-        <option value="Map">Maps</option>
-        <option value="Enemy">Enemies</option>
-        <option value="Weapon">Weapons</option>
-    </select>
-</nav>
+    <section class="panel" aria-labelledby="browse-title" id="browse">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Browse</p>
+          <h2 id="browse-title">Available Mods</h2>
+        </div>
 
+        <div class="filters">
+          <label class="sr-only" for="search">Search mods</label>
+          <input id="search" type="search" placeholder="Search mods..." autocomplete="off" />
 
+          <label class="sr-only" for="category">Filter by category</label>
+          <select id="category">
+            <option value="All">All Categories</option>
+            <option value="Map">Maps</option>
+            <option value="Enemy">Enemies</option>
+            <option value="Weapon">Weapons</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="mods" class="grid" aria-live="polite">Loading mods...</div>
+    </section>
+
+    <section class="panel" id="featured">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Featured</p>
+          <h2>Featured Mods</h2>
+        </div>
+      </div>
+
+      <div class="grid" id="featured-mods"></div>
+    </section>
+
+    <section class="panel" id="maps">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Category</p>
+          <h2>Maps</h2>
+        </div>
+      </div>
+      <div class="grid" id="maps-mods"></div>
+    </section>
+
+    <section class="panel" id="enemies">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Category</p>
+          <h2>Enemies</h2>
+        </div>
+      </div>
+      <div class="grid" id="enemy-mods"></div>
+    </section>
+
+    <section class="panel" id="weapons">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Category</p>
+          <h2>Weapons</h2>
+        </div>
+      </div>
+      <div class="grid" id="weapon-mods"></div>
+    </section>
+
+    <section class="panel" id="creator-hub">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Creator Hub</p>
+          <h2>How publishing works here</h2>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <article class="info-card">
+          <h3>No account required</h3>
+          <p>Creators fill out the form locally. The site never asks for a login.</p>
+        </article>
+
+        <article class="info-card">
+          <h3>Local submission packet</h3>
+          <p>The portal generates a JSON or Markdown file you can share manually.</p>
+        </article>
+
+        <article class="info-card">
+          <h3>Privacy-first</h3>
+          <p>Nothing is sent anywhere unless the creator chooses to share the file.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="docs">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Documentation</p>
+          <h2>Mod format basics</h2>
+        </div>
+      </div>
+
+      <div class="doc-grid">
+        <article class="doc-card">
+          <h3>.tamod package</h3>
+          <pre>manifest.json
+content/
+preview.png</pre>
+        </article>
+
+        <article class="doc-card">
+          <h3>manifest.json</h3>
+          <pre>{
+  "name": "Urban Raid",
+  "type": "Map",
+  "version": "1.0.0",
+  "author": "Fox"
+}</pre>
+        </article>
+
+        <article class="doc-card">
+          <h3>Recommended folders</h3>
+          <pre>maps/
+enemies/
+weapons/
+assets/</pre>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="faq">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">FAQ</p>
+          <h2>Frequently asked questions</h2>
+        </div>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>Does this require an account?</summary>
+          <p>No. The submission form generates a file locally and keeps the process private.</p>
+        </details>
+
+        <details>
+          <summary>Does the site upload anything automatically?</summary>
+          <p>No. The browser only creates a downloadable packet. Nothing leaves the device by default.</p>
+        </details>
+
+        <details>
+          <summary>Can this become a real workshop later?</summary>
+          <p>Yes. A backend can be added later for automatic publishing, ratings, and comments.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="panel" id="submit">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Submit Mod</p>
+          <h2>Creator submission form</h2>
+        </div>
+      </div>
+
+      <form id="submit-form" class="submit-form">
+        <div class="form-grid">
+          <label>
+            Mod name
+            <input name="name" type="text" placeholder="Urban Raid" required />
+          </label>
+
+          <label>
+            Creator name
+            <input name="author" type="text" placeholder="Fox" required />
+          </label>
+
+          <label>
+            Type
+            <select name="type" required>
+              <option value="Map">Map</option>
+              <option value="Enemy">Enemy</option>
+              <option value="Weapon">Weapon</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+
+          <label>
+            Version
+            <input name="version" type="text" placeholder="1.0.0" required />
+          </label>
+
+          <label class="span-2">
+            Description
+            <textarea name="description" rows="5" placeholder="Describe the mod..." required></textarea>
+          </label>
+
+          <label class="span-2">
+            Download link or file name
+            <input name="download" type="text" placeholder="mods/UrbanRaid.tamod or https://..." />
+          </label>
+
+          <label class="span-2">
+            Preview image link
+            <input name="preview" type="text" placeholder="Optional" />
+          </label>
+        </div>
+
+        <div class="submit-actions">
+          <button type="submit" class="button primary">Generate Submission Packet</button>
+          <button type="button" id="copy-md" class="button secondary">Copy Markdown</button>
+          <button type="button" id="copy-json" class="button secondary">Copy JSON</button>
+          <button type="button" id="download-json" class="button secondary">Download JSON</button>
+          <button type="reset" class="button ghost">Clear</button>
+        </div>
+      </form>
+
+      <div class="output-grid">
+        <section class="output-card">
+          <h3>Markdown preview</h3>
+          <pre id="md-preview">Fill out the form to generate a local submission packet.</pre>
+        </section>
+
+        <section class="output-card">
+          <h3>JSON preview</h3>
+          <pre id="json-preview">{};</pre>
+        </section>
+      </div>
+
+      <p class="privacy-note">
+        Privacy note: the form runs in your browser only. Nothing is uploaded automatically.
+      </p>
+    </section>
+
+    <section class="panel" id="about">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">About</p>
+          <h2>About Fox Mod Portal</h2>
+        </div>
+      </div>
+
+      <p>
+        Fox Mod Portal is a community mod hub concept built to support Tactical Assault VR first,
+        then other standalone VR games later.
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Fox Mod Portal v1.0</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
 <main>
 
 <h2>Available Mods</h2>
