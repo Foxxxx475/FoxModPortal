@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fox Mod Portal</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -8,53 +10,50 @@
 <body>
 
 <header>
-    <h1>🦊 Fox Mod Portal</h1>
-    <p>Tactical Assault VR Community Mod Hub</p>
+    <div class="logo">
+        🦊 Fox Mod Portal
+    </div>
+
+    <p>
+        Tactical Assault VR Community Mod Hub
+    </p>
 </header>
 
-<main>
-    <h2>Available Mods</h2>
+<nav>
+    <input 
+        id="search"
+        type="text"
+        placeholder="Search mods..."
+    >
 
-    <div id="mods">
-        Loading mods...
-    </div>
+    <select id="category">
+        <option value="All">All Categories</option>
+        <option value="Map">Maps</option>
+        <option value="Enemy">Enemies</option>
+        <option value="Weapon">Weapons</option>
+    </select>
+</nav>
+
+
+<main>
+
+<h2>Available Mods</h2>
+
+<div id="mods">
+    Loading mods...
+</div>
+
 </main>
 
+
 <footer>
-    <p>Fox Mod Portal v0.1</p>
+    <p>
+        Fox Mod Portal v0.1
+    </p>
 </footer>
 
-<script>
-fetch("mods.json")
-.then(response => response.json())
-.then(data => {
 
-    const container = document.getElementById("mods");
-
-    data.mods.forEach(mod => {
-
-        container.innerHTML += `
-        <div class="mod-card">
-
-            <h3>${mod.name}</h3>
-
-            <p>
-            Type: ${mod.type}<br>
-            Version: ${mod.version}<br>
-            Creator: ${mod.author}
-            </p>
-
-            <a href="${mod.download}">
-                Download
-            </a>
-
-        </div>
-        `;
-
-    });
-
-});
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
