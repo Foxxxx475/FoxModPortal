@@ -1,11 +1,21 @@
 {
     "mods": [
+
         {
             "name": "Urban Raid",
             "type": "Map",
             "version": "1.0",
             "author": "Fox",
             "download": "#"
+        },
+
+        {
+            "name": "PMC Enemy Pack",
+            "type": "Enemy",
+            "version": "1.0",
+            "author": "Fox",
+            "download": "#"
         }
+
     ]
 }
