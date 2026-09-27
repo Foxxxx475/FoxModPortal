@@ -1,18 +1,16 @@
 # Fox Mod Portal
 
-A community mod hub for Tactical Assault VR.
+Privacy-first community mod portal for Tactical Assault VR.
 
-## Features
+## What this version does
+- Browse mods
+- Filter by category
+- View featured content
+- Show creator hub and docs
+- Generate local submission packets with no account required
 
-- Mod browsing
-- Categories
-- Search
-- Version tracking
-- Creator support
+## Privacy
+The submission form runs only in the browser. It does not upload anything automatically.
 
-## Future
-
-- Mod submissions
-- Creator profiles
-- Quest companion app
-- .tamod SDK
+## Next step
+Add a real backend only if automatic publishing, accounts, or ratings become necessary.
