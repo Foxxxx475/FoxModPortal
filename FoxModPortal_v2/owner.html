@@ -1,0 +1,96 @@
+<!doctype html>
+    <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>Catalog editor — Fox Mod Portal</title>
+      <meta name="description" content="Local catalog editor for updating mods.json.">
+      <link rel="icon" href="favicon.svg" type="image/svg+xml">
+      <link rel="stylesheet" href="styles.css">
+    </head>
+    <body data-page="owner" class="">
+      <div class="site-shell">
+        <header class="topbar">
+  <a class="brand" href="index.html" aria-label="Fox Mod Portal home">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+        <path d="M4 7l4-3 4 3 4-3 4 3-2 11-6 4-6-4-2-11z"></path>
+        <path d="M9 13h6"></path>
+        <path d="M10 11.5h.01"></path>
+        <path d="M14 11.5h.01"></path>
+      </svg>
+    </span>
+    <span class="brand-copy">
+      <strong>FOX MOD PORTAL</strong>
+      <small>Community mods for Tactical Assault VR</small>
+    </span>
+  </a>
+  <nav class="nav" aria-label="Primary navigation">
+    <a href="index.html">Home</a>
+    <a href="mods.html">Browse</a>
+    <a href="submit.html">Submit</a>
+    <a href="docs.html">Docs</a>
+    <a href="about.html">About</a>
+  </nav>
+  <a class="nav-cta" href="submit.html">Submit a mod</a>
+</header>
+
+        <main>
+              <section class="page-hero">
+            <p class="kicker">CATALOG EDITOR</p>
+            <h1>Local mod catalog editor</h1>
+            <p>
+              This page is for updating <code>mods.json</code> locally. It stays in the browser unless you download the file or replace the repository file yourself.
+            </p>
+          </section>
+
+          <section class="owner-layout">
+            <div class="owner-card">
+              <h2>Add a mod</h2>
+              <div class="form-grid">
+                <label>Mod name<input id="owner-name" placeholder="Urban Raid"></label>
+                <label>Creator<input id="owner-author" placeholder="Fox"></label>
+                <label>Category
+                  <select id="owner-type">
+                    <option>Map</option>
+                    <option>Enemy</option>
+                    <option>Weapon</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+                <label>Version<input id="owner-version" placeholder="1.0.0"></label>
+                <label class="span-2">Description<textarea id="owner-description" rows="5" placeholder="Short description"></textarea></label>
+                <label class="span-2">Download URL<input id="owner-download" placeholder="https://example.com/MyMod.tamod"></label>
+              </div>
+              <div class="button-row">
+                <button class="button button-primary" id="owner-add" type="button">Add to catalog</button>
+                <button class="button button-secondary" id="owner-download-json" type="button">Download mods.json</button>
+                <button class="button button-ghost" id="owner-reset" type="button">Reset</button>
+              </div>
+              <div id="owner-message" class="status-line"></div>
+            </div>
+
+            <div class="owner-card">
+              <h2>Current catalog</h2>
+              <div id="owner-list" class="owner-list"></div>
+            </div>
+          </section>
+        </main>
+        <footer class="footer">
+  <div class="footer-left">
+    <strong>Fox Mod Portal</strong>
+    <span>v2</span>
+  </div>
+  <nav class="footer-nav" aria-label="Footer navigation">
+    <a href="privacy.html">Privacy</a>
+    <a href="docs.html">Documentation</a>
+    <a href="about.html">About</a>
+    <a href="owner.html">Catalog editor</a>
+  </nav>
+</footer>
+
+      </div>
+      <script src="app.js"></script>
+      <script src="owner.js"></script>
+    </body>
+    </html>
