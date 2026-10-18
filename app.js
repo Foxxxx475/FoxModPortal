@@ -131,11 +131,11 @@ function renderMods(container, mods, options = {}) {
   }
 
   container.innerHTML = mods.map((mod) => {
-    const download = mod.download && mod.download !== "#";
+    const download = mod.download && mod.download !== "#" && safeUrl(mod.download);
     const compat = mod.compatibility ? `<span class="tag">${escapeHtml(mod.compatibility)}</span>` : "";
     const featured = mod.featured ? '<span class="tag featured">Featured</span>' : "";
     const downloadButton = download
-      ? `<a class="button button-secondary" href="${escapeAttr(mod.download)}" ${isExternal(mod.download) ? 'target="_blank" rel="noopener noreferrer"' : ""}>Download</a>`
+      ? `<a class="button button-secondary" href="${escapeAttr(mod.download)}" ${isExternal(mod.download) ? 'target="_blank" rel="noopener noreferrer"' : "download"}>Download</a>`
       : `<a class="button button-secondary" href="#" aria-disabled="true">Coming soon</a>`;
 
     return `
@@ -152,6 +152,7 @@ function renderMods(container, mods, options = {}) {
         <div class="mod-actions">
           ${downloadButton}
         </div>
+        ${extraFiles(mod)}
       </article>
     `;
   }).join("");
@@ -221,7 +222,7 @@ function initSubmit() {
   });
 }
 
-function initOwner() {
+async function initOwner() {
   const list = document.getElementById("owner-list");
   const message = document.getElementById("owner-message");
   const add = document.getElementById("owner-add");
@@ -237,11 +238,105 @@ function initOwner() {
     download: document.getElementById("owner-download")
   };
 
+  try { await loadCatalog(); } catch {}
   const local = cloneCatalog();
-
   draw();
 
-  add.addEventListener("click", () => {
+  const files = [];
+  const zone = document.getElementById("drop-zone");
+  const picker = document.getElementById("file-input");
+  const fileList = document.getElementById("file-list");
+  function addFiles(list) {
+    for (const f of list) if (!files.some((x) => x.name === f.name && x.size === f.size)) files.push(f);
+    drawFiles();
+  }
+  function drawFiles() {
+    fileList.innerHTML = files.map((f, i) => `<li>${escapeHtml(f.name)}<span>${(f.size / 1048576).toFixed(1)} MB</span><button class="button button-ghost" type="button" data-drop="${i}">Remove</button></li>`).join("");
+  }
+  document.getElementById("pick-files").addEventListener("click", () => picker.click());
+  picker.addEventListener("change", () => { addFiles(picker.files); picker.value = ""; });
+  ["dragenter", "dragover"].forEach((t) => zone.addEventListener(t, (e) => { e.preventDefault(); zone.classList.add("over"); }));
+  ["dragleave", "drop"].forEach((t) => zone.addEventListener(t, (e) => { e.preventDefault(); zone.classList.remove("over"); }));
+  zone.addEventListener("drop", (e) => addFiles(e.dataTransfer.files));
+  fileList.addEventListener("click", (e) => {
+    const i = e.target.dataset.drop;
+    if (i !== undefined) { files.splice(Number(i), 1); drawFiles(); }
+  });
+
+  const gh = { token: "", repo: "" };
+  const ghStatus = document.getElementById("gh-status");
+  const repoInput = document.getElementById("gh-repo");
+  const tokenInput = document.getElementById("gh-token");
+  const disconnectBtn = document.getElementById("gh-disconnect");
+  const headers = (token) => ({ Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" });
+  const host = location.hostname.match(/^(.+)\.github\.io$/);
+  const seg = location.pathname.split("/")[1] || "";
+  repoInput.value = host && seg && !seg.includes(".") ? `${host[1]}/${seg}` : "";
+
+  async function connect(token, repo) {
+    ghStatus.textContent = "Checking…";
+    try {
+      const r = await fetch(`https://api.github.com/repos/${repo}`, { headers: headers(token) });
+      const j = await r.json();
+      if (!r.ok || !(j.permissions && j.permissions.push)) throw new Error();
+      gh.token = token; gh.repo = repo;
+      try { sessionStorage.setItem("fmp_gh", JSON.stringify({ token, repo })); } catch {}
+      ghStatus.textContent = `Connected to ${repo}.`;
+      disconnectBtn.hidden = false;
+    } catch {
+      ghStatus.textContent = "Could not connect. Check the repository name and that the token can write to it.";
+    }
+  }
+  document.getElementById("gh-connect").addEventListener("click", () => {
+    const repo = repoInput.value.trim(), token = tokenInput.value.trim();
+    if (!/^[\w.-]+\/[\w.-]+$/.test(repo) || !token) { ghStatus.textContent = "Enter owner/repo and a token."; return; }
+    tokenInput.value = "";
+    connect(token, repo);
+  });
+  disconnectBtn.addEventListener("click", () => {
+    try { sessionStorage.removeItem("fmp_gh"); } catch {}
+    gh.token = ""; gh.repo = ""; disconnectBtn.hidden = true; ghStatus.textContent = "Not connected.";
+  });
+  try {
+    const saved = JSON.parse(sessionStorage.getItem("fmp_gh") || "null");
+    if (saved) { repoInput.value = saved.repo; connect(saved.token, saved.repo); }
+  } catch {}
+
+  async function uploadFile(file, id) {
+    if (file.size > 50 * 1024 * 1024) throw new Error(`${file.name} is over 50 MB. Host it elsewhere and paste the link instead.`);
+    const path = `mods/${id}/${file.name.replace(/[^\w.-]+/g, "_")}`;
+    const content = await new Promise((res, rej) => {
+      const fr = new FileReader();
+      fr.onload = () => res(String(fr.result).split(",")[1]);
+      fr.onerror = rej;
+      fr.readAsDataURL(file);
+    });
+    const r = await fetch(`https://api.github.com/repos/${gh.repo}/contents/${path}`, {
+      method: "PUT",
+      headers: { ...headers(gh.token), "Content-Type": "application/json" },
+      body: JSON.stringify({ message: `Add ${path}`, content })
+    });
+    if (!r.ok) throw new Error(r.status === 422 ? `${path} already exists in the repo.` : `Upload failed for ${file.name} (${r.status}).`);
+    return path;
+  }
+
+  async function publishCatalog() {
+    const api = `https://api.github.com/repos/${gh.repo}/contents/mods.json`;
+    const cur = await fetch(api, { headers: headers(gh.token) });
+    const body = { message: "Update mods.json", content: btoa(unescape(encodeURIComponent(JSON.stringify(local, null, 2) + "\n"))) };
+    if (cur.ok) body.sha = (await cur.json()).sha;
+    const r = await fetch(api, { method: "PUT", headers: { ...headers(gh.token), "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    if (!r.ok) throw new Error(`Publish failed (${r.status}).`);
+  }
+
+  document.getElementById("owner-publish").addEventListener("click", async () => {
+    if (!gh.token) { message.textContent = "Connect GitHub above to publish."; return; }
+    message.textContent = "Publishing…";
+    try { await publishCatalog(); message.textContent = "Published. The site updates in a minute or two."; }
+    catch (e) { message.textContent = e.message; }
+  });
+
+  add.addEventListener("click", async () => {
     const mod = {
       id: `${slugify(fields.author.value)}.${slugify(fields.name.value)}`,
       name: fields.name.value.trim(),
@@ -249,7 +344,7 @@ function initOwner() {
       type: fields.type.value,
       version: fields.version.value.trim(),
       description: fields.description.value.trim(),
-      download: fields.download.value.trim() || "#",
+      download: fields.download.value.trim(),
       compatibility: "Unknown",
       featured: false,
       publishedAt: new Date().toISOString().slice(0, 10)
@@ -259,15 +354,31 @@ function initOwner() {
       message.textContent = "Fill out the required fields first.";
       return;
     }
+    if (!files.length && !mod.download) {
+      message.textContent = "Add a file or a download link.";
+      return;
+    }
+    if (files.length) {
+      if (!gh.token) { message.textContent = "Connect GitHub above to upload files."; return; }
+      message.textContent = "Uploading…";
+      try {
+        const paths = [];
+        for (const f of files) paths.push(await uploadFile(f, mod.id));
+        mod.download = paths.find((p) => p.endsWith(".tamod")) || paths[0];
+        if (paths.length > 1) mod.files = paths;
+      } catch (e) { message.textContent = e.message || "Upload failed."; return; }
+    }
 
     local.mods.unshift(mod);
-    fields.name.value = "";
-    fields.author.value = "";
-    fields.version.value = "";
-    fields.description.value = "";
-    fields.download.value = "";
-    message.textContent = `Added ${mod.name}. Download the updated JSON to replace mods.json.`;
-    draw();
+    ["name", "author", "version", "description", "download"].forEach((k) => { fields[k].value = ""; });
+    files.length = 0; drawFiles(); draw();
+
+    if (gh.token) {
+      try { await publishCatalog(); message.textContent = `Added ${mod.name} and published. The site updates in a minute or two.`; }
+      catch (e) { message.textContent = `Added ${mod.name}, but ${e.message} Use Publish catalog to retry.`; }
+    } else {
+      message.textContent = `Added ${mod.name}. Download the updated JSON to replace mods.json.`;
+    }
   });
 
   download.addEventListener("click", () => {
@@ -284,6 +395,7 @@ function initOwner() {
   });
 
   reset.addEventListener("click", () => {
+    if (!confirm("Clear the whole catalog in this editor? Nothing changes on the site until you publish.")) return;
     local.mods = [];
     fields.name.value = "";
     fields.author.value = "";
@@ -373,4 +485,15 @@ function escapeAttr(value) {
 
 function isExternal(url) {
   return /^https?:\/\//i.test(url);
+}
+
+function safeUrl(url) {
+  return /^https:\/\//i.test(url) || !/^[a-z][a-z0-9+.-]*:/i.test(url);
+}
+
+function extraFiles(mod) {
+  if (!Array.isArray(mod.files)) return "";
+  const rest = mod.files.filter((p) => p !== mod.download && safeUrl(p));
+  if (!rest.length) return "";
+  return `<div class="mod-files">More files: ${rest.map((p) => `<a class="text-link" href="${escapeAttr(p)}" download>${escapeHtml(p.split("/").pop())}</a>`).join("")}</div>`;
 }

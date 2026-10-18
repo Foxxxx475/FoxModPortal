@@ -473,7 +473,7 @@ input:focus,select:focus,textarea:focus{
 .doc-list li{margin-bottom:6px}
 .info-grid{
   display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-columns:repeat(2,minmax(0,1fr));
   gap:14px;
 }
 .roadmap{
@@ -558,3 +558,14 @@ input:focus,select:focus,textarea:focus{
   .footer{width:min(var(--max),calc(100% - 22px));flex-direction:column;align-items:flex-start}
   .results-row{flex-direction:column}
 }
+
+[hidden]{display:none!important}
+.optional{color:var(--muted);font-size:.9rem;font-weight:400}
+.gh-card{margin-bottom:14px}.gh-card p{color:var(--muted)}
+.dropzone{border:1px dashed var(--line-strong);background:#171717;padding:18px;display:grid;gap:10px;justify-items:start}
+.dropzone.over{border-color:var(--accent);background:rgba(225,107,24,.06)}
+.dropzone p{margin:0;color:var(--muted)}
+.file-list{list-style:none;margin:0;padding:0;width:100%;display:grid;gap:6px}
+.file-list li{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:6px}
+.file-list li span{color:var(--muted);margin-left:auto;font-size:.88rem}
+.mod-files{margin-top:10px;font-size:.88rem;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap}

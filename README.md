@@ -10,7 +10,7 @@ Fox Mod Portal is a static community mod catalog for Tactical Assault VR.
 - Local submission packet generator
 - Documentation pages
 - Privacy page
-- Local catalog editor
+- Catalog editor with drag-and-drop file upload (optional GitHub connection uploads files to `mods/` and publishes `mods.json`)
 
 ## Files
 

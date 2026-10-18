@@ -44,6 +44,20 @@
             </p>
           </section>
 
+          <section class="owner-card gh-card">
+            <h2>GitHub connection <span class="optional">(optional)</span></h2>
+            <p>Only needed to upload files and publish from this page. Use a fine-grained token limited to this repository with Contents: Read and write. It stays in this tab and is cleared when you close it.</p>
+            <div class="form-grid">
+              <label>Repository<input id="gh-repo" placeholder="owner/repo"></label>
+              <label>Token<input id="gh-token" type="password" autocomplete="off"></label>
+            </div>
+            <div class="button-row">
+              <button class="button button-secondary" id="gh-connect" type="button">Connect</button>
+              <button class="button button-ghost" id="gh-disconnect" type="button" hidden>Disconnect</button>
+            </div>
+            <div id="gh-status" class="status-line">Not connected.</div>
+          </section>
+
           <section class="owner-layout">
             <div class="owner-card">
               <h2>Add a mod</h2>
@@ -60,10 +74,17 @@
                 </label>
                 <label>Version<input id="owner-version" placeholder="1.0.0"></label>
                 <label class="span-2">Description<textarea id="owner-description" rows="5" placeholder="Short description"></textarea></label>
-                <label class="span-2">Download URL<input id="owner-download" placeholder="https://example.com/MyMod.tamod"></label>
+                <div class="span-2 dropzone" id="drop-zone">
+                  <p><strong>Drop mod files here</strong> or</p>
+                  <button class="button button-secondary" id="pick-files" type="button">Choose files</button>
+                  <input id="file-input" type="file" multiple hidden>
+                  <ul id="file-list" class="file-list"></ul>
+                </div>
+                <label class="span-2">Or link to a file hosted elsewhere<input id="owner-download" placeholder="https://example.com/MyMod.tamod"></label>
               </div>
               <div class="button-row">
                 <button class="button button-primary" id="owner-add" type="button">Add to catalog</button>
+                <button class="button button-secondary" id="owner-publish" type="button">Publish catalog</button>
                 <button class="button button-secondary" id="owner-download-json" type="button">Download mods.json</button>
                 <button class="button button-ghost" id="owner-reset" type="button">Reset</button>
               </div>
