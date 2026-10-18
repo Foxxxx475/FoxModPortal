@@ -1,31 +1,34 @@
-# Fox Mod Portal v1
+# Fox Mod Portal
 
-Privacy-first static mod portal for Tactical Assault VR.
+Fox Mod Portal is a static community mod catalog for Tactical Assault VR.
 
-## v1 includes
-- Home page
-- Searchable mod catalog
-- Category filtering
-- Featured mods
-- Creator hub
-- .tamod documentation
+## What is in this revision
+
+- Flat orange / charcoal visual system
+- Left-aligned layout
+- Public mod browser
+- Local submission packet generator
+- Documentation pages
 - Privacy page
-- No-account local submission packet generator
+- Local catalog editor
 
-## Hosting
-This is plain static HTML/CSS/JS. It can be hosted on GitHub Pages, Vercel, Cloudflare Pages, or any static host.
+## Files
 
-## Important limitation
-The v1 catalog and submission workflow do not claim that Tactical Assault VR currently accepts external mod content. Runtime integration is a separate technical project.
+- `index.html`
+- `mods.html`
+- `submit.html`
+- `docs.html`
+- `about.html`
+- `privacy.html`
+- `owner.html`
+- `styles.css`
+- `app.js`
+- `owner.js`
+- `mods.json`
+- `favicon.svg`
 
-## Privacy
-The submission form does not upload its fields. It only creates JSON/Markdown in the visitor's browser.
+## Notes
 
-## License
-The portal's code is released under the MIT License (see `LICENSE`). Individual mods listed in the catalog are licensed by their creators.
+The site does not require an account for browsing or preparing a submission packet.
 
-## Owner tools
-`owner.html` (not linked from the nav) builds a new `mods.json` locally: add verified creators, mark mods "Approved by Fox", import submission packets, delete listings. Upload the downloaded `mods.json` to the repo root to publish. It isn't password protected; changes only go live when you commit the file.
-
-## Disclaimer
-Mods are not scanned or analyzed before posting (at the moment). I don't take credit for any mod posted here.
+The public roadmap omits moderation internals and Quest companion details from the public pages.

@@ -1,6 +1,57 @@
 {
-  "catalogVersion": "1.1.0",
+  "catalogVersion": "2.0.0",
   "game": "Tactical Assault VR",
-  "verifiedCreators": [],
-  "mods": []
+  "verifiedCreators": [
+    "Fox"
+  ],
+  "mods": [
+    {
+      "id": "fox.urban-raid",
+      "name": "Urban Raid",
+      "type": "Map",
+      "version": "1.2.0",
+      "author": "Fox",
+      "description": "A compact CQB warehouse map built for short rounds and clear sightlines.",
+      "download": "#",
+      "featured": true,
+      "publishedAt": "2026-09-27",
+      "compatibility": "Quest standalone"
+    },
+    {
+      "id": "fox.pmc-enemy-pack",
+      "name": "PMC Enemy Pack",
+      "type": "Enemy",
+      "version": "1.0.0",
+      "author": "Fox",
+      "description": "Enemy variations with tighter formations, heavier gear, and slower pushes.",
+      "download": "#",
+      "featured": true,
+      "publishedAt": "2026-09-27",
+      "compatibility": "Quest standalone"
+    },
+    {
+      "id": "fox.suppressed-sidearms",
+      "name": "Suppressed Sidearms",
+      "type": "Weapon",
+      "version": "0.9.0",
+      "author": "Fox",
+      "description": "A weapon set centered on compact sidearms and low-profile builds.",
+      "download": "#",
+      "featured": false,
+      "publishedAt": "2026-09-26",
+      "compatibility": "Quest + PCVR"
+    },
+    {
+      "id": "fox.night-ops",
+      "name": "Night Operations",
+      "type": "Map",
+      "version": "0.3.0",
+      "author": "Fox",
+      "description": "A low-light test map with longer sightlines and fewer interior lanes.",
+      "download": "#",
+      "featured": false,
+      "publishedAt": "2026-09-25",
+      "compatibility": "Unknown"
+    }
+  ]
 }

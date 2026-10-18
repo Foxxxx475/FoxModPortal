@@ -1,1 +1,135 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Submit a Mod — Fox Mod Portal</title><meta name="description" content="Prepare a Fox Mod Portal submission without creating an account."><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css"></head><body data-page="submit"><div class="site-shell"><header class="topbar"><a class="brand" href="index.html"><span class="brand-copy"><strong>Fox Mod Portal</strong></span></a><nav class="nav"><a href="index.html">Home</a><a href="mods.html">Browse Mods</a><a class="active" href="submit.html">Submit</a><a href="docs.html">Docs</a><a href="about.html">About</a></nav><a class="nav-cta" href="mods.html">Browse mods</a></header><main><section class="page-hero"><h1>Submit a mod</h1><p>Create a submission packet locally. No account, email, or automatic upload is required.</p></section><p class="notice">Mods are not scanned or analyzed before posting (at the moment). I don’t take credit for any mod posted here.</p><section class="submit-layout"><form id="submission-form" class="form-card"><div class="form-grid"><label>Mod name <span class="required">*</span><input name="name" required maxlength="80" placeholder="Urban Raid"></label><label>Creator name <span class="required">*</span><input name="author" required maxlength="60" placeholder="Fox"></label><label>Category <span class="required">*</span><select name="type"><option value="Map">Map</option><option value="Enemy">Enemy</option><option value="Weapon">Weapon</option><option value="Other">Other</option></select></label><label>Version <span class="required">*</span><input name="version" required maxlength="30" placeholder="1.0.0"></label><label class="span-2">Description <span class="required">*</span><textarea name="description" required maxlength="2500" rows="7" placeholder="What does your mod add?"></textarea></label><label class="span-2">Download URL<input name="download" maxlength="500" placeholder="https://example.com/MyMod.tamod"></label><label class="span-2">Preview image URL<input name="preview" maxlength="500" placeholder="https://example.com/preview.png"></label><label>TAVR compatibility<select name="compatibility"><option>Unknown</option><option>Quest standalone</option><option>Quest + PCVR</option></select></label><label>License<input name="license" maxlength="80" placeholder="MIT / All rights reserved"></label></div><div class="privacy-callout"><strong>Privacy-first form</strong><p>This page does not ask for an account or email. Submitting the form does not upload your data. The buttons below only create or copy a file in your browser.</p></div><div class="button-row"><button class="button button-primary" type="submit">Generate packet</button><button class="button button-secondary" type="button" id="copy-submission">Copy JSON</button><button class="button button-secondary" type="button" id="download-submission">Download JSON</button><button class="button button-quiet" type="reset">Clear</button></div></form><aside class="output-card"><div class="panel-label">LOCAL OUTPUT</div><div id="submission-status" class="output-status">Fill out the form and generate a packet.</div><pre id="submission-output">{}</pre><div id="markdown-output" class="markdown-preview">Markdown preview will appear here.</div></aside></section><section class="section"><div class="section-head"><div><h2>After generation</h2></div></div><div class="feature-list three"><div><span>01</span><strong>Review it</strong><p>Check the generated data before sharing.</p></div><div><span>02</span><strong>Keep control</strong><p>Choose where and how you publish it.</p></div><div><span>03</span><strong>Publish later</strong><p>Automatic anonymous publishing can be added in a future backend.</p></div></div></section></main><footer class="footer"><div><strong>Fox Mod Portal</strong><span>v1.0</span></div><nav><a href="privacy.html">Privacy</a><a href="docs.html">Documentation</a></nav><p class="footer-note">I don’t take credit for any mod posted here; every mod belongs to its creator. Mods are not scanned or analyzed before posting (at the moment), so be careful what you download.</p></footer></div><script src="app.js"></script></body></html>
+<!doctype html>
+    <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>Submit a mod — Fox Mod Portal</title>
+      <meta name="description" content="Create a mod submission packet locally without an account.">
+      <link rel="icon" href="favicon.svg" type="image/svg+xml">
+      <link rel="stylesheet" href="styles.css">
+    </head>
+    <body data-page="submit" class="">
+      <div class="site-shell">
+        <header class="topbar">
+  <a class="brand" href="index.html" aria-label="Fox Mod Portal home">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+        <path d="M4 7l4-3 4 3 4-3 4 3-2 11-6 4-6-4-2-11z"></path>
+        <path d="M9 13h6"></path>
+        <path d="M10 11.5h.01"></path>
+        <path d="M14 11.5h.01"></path>
+      </svg>
+    </span>
+    <span class="brand-copy">
+      <strong>FOX MOD PORTAL</strong>
+      <small>Community mods for Tactical Assault VR</small>
+    </span>
+  </a>
+  <nav class="nav" aria-label="Primary navigation">
+    <a href="index.html">Home</a>
+    <a href="mods.html">Browse</a>
+    <a class="active" href="submit.html">Submit</a>
+    <a href="docs.html">Docs</a>
+    <a href="about.html">About</a>
+  </nav>
+  <a class="nav-cta" href="submit.html">Submit a mod</a>
+</header>
+
+        <main>
+              <section class="page-hero">
+            <p class="kicker">SUBMIT</p>
+            <h1>Prepare a submission packet</h1>
+            <p>
+              This form stays local. It does not require an account and it does not upload anything by itself.
+            </p>
+          </section>
+
+          <section class="submit-layout">
+            <form id="submission-form" class="form-panel">
+              <div class="form-grid">
+                <label>
+                  Mod name
+                  <input name="name" required maxlength="80" placeholder="Urban Raid">
+                </label>
+                <label>
+                  Creator name
+                  <input name="author" required maxlength="60" placeholder="Fox">
+                </label>
+                <label>
+                  Category
+                  <select name="type">
+                    <option value="Map">Map</option>
+                    <option value="Enemy">Enemy</option>
+                    <option value="Weapon">Weapon</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </label>
+                <label>
+                  Version
+                  <input name="version" required maxlength="30" placeholder="1.0.0">
+                </label>
+                <label class="span-2">
+                  Description
+                  <textarea name="description" required maxlength="2500" rows="7" placeholder="What does the mod add?"></textarea>
+                </label>
+                <label class="span-2">
+                  Download link
+                  <input name="download" maxlength="500" placeholder="https://example.com/MyMod.tamod">
+                </label>
+                <label class="span-2">
+                  Preview image link
+                  <input name="preview" maxlength="500" placeholder="Optional">
+                </label>
+                <label>
+                  Compatibility
+                  <select name="compatibility">
+                    <option>Unknown</option>
+                    <option>Quest standalone</option>
+                    <option>Quest + PCVR</option>
+                  </select>
+                </label>
+                <label>
+                  License
+                  <input name="license" maxlength="80" placeholder="MIT / All rights reserved">
+                </label>
+              </div>
+
+              <div class="privacy-box">
+                <strong>No account wall</strong>
+                <p>The site generates JSON and Markdown in your browser. Nothing is sent anywhere unless you copy or upload it yourself.</p>
+              </div>
+
+              <div class="button-row">
+                <button class="button button-primary" type="submit">Generate packet</button>
+                <button class="button button-secondary" type="button" id="copy-submission">Copy JSON</button>
+                <button class="button button-secondary" type="button" id="download-submission">Download JSON</button>
+                <button class="button button-ghost" type="reset">Clear</button>
+              </div>
+            </form>
+
+            <aside class="output-panel">
+              <div class="panel-title">Local output</div>
+              <div id="submission-status" class="status-line">Fill out the form and generate a packet.</div>
+              <pre id="submission-output">{}</pre>
+              <div id="markdown-output" class="markdown-preview">Markdown preview will appear here.</div>
+            </aside>
+          </section>
+        </main>
+        <footer class="footer">
+  <div class="footer-left">
+    <strong>Fox Mod Portal</strong>
+    <span>v2</span>
+  </div>
+  <nav class="footer-nav" aria-label="Footer navigation">
+    <a href="privacy.html">Privacy</a>
+    <a href="docs.html">Documentation</a>
+    <a href="about.html">About</a>
+    <a href="owner.html">Catalog editor</a>
+  </nav>
+</footer>
+
+      </div>
+      <script src="app.js"></script>
+      <script src="owner.js"></script>
+    </body>
+    </html>

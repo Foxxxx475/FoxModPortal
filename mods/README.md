@@ -1,3 +1,3 @@
-# Future .tamod packages
+# Mods folder
 
-Place released `.tamod` files here when real mod packages are available.
+Place released `.tamod` files here if you want to keep a local copy of downloadable packages in the repository.

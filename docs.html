@@ -1,18 +1,115 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Documentation — Fox Mod Portal</title><meta name="description" content="Fox Mod Portal documentation and .tamod package format."><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css"></head><body data-page="docs"><div class="site-shell"><header class="topbar"><a class="brand" href="index.html"><span class="brand-copy"><strong>Fox Mod Portal</strong></span></a><nav class="nav"><a href="index.html">Home</a><a href="mods.html">Browse Mods</a><a href="submit.html">Submit</a><a class="active" href="docs.html">Docs</a><a href="about.html">About</a></nav><a class="nav-cta" href="submit.html">Submit a mod</a></header><main><section class="page-hero"><h1>Build for Fox Mod Portal</h1><p>Start with a portable manifest and keep the content format simple.</p></section><section class="doc-layout"><article class="doc-card large"><h2>.tamod package</h2><p>The portal uses a ZIP-based package convention with the <code>.tamod</code> extension. The exact in-game loading behavior depends on the future TAVR integration layer.</p><pre><code>MyMod.tamod
-├── manifest.json
-├── preview.png
-└── content/
-    ├── maps/
-    ├── enemies/
-    ├── weapons/
-    └── assets/</code></pre></article><article class="doc-card large"><h2>Manifest example</h2><pre><code>{
-  "id": "fox.urban-raid",
-  "name": "Urban Raid",
-  "version": "1.0.0",
-  "author": "Fox",
-  "type": "Map",
-  "game": "Tactical Assault VR",
-  "platform": ["Quest"],
-  "description": "A CQB warehouse scenario.",
-  "license": "All rights reserved"
-}</code></pre></article><article class="doc-card large"><h2>Creator guidance</h2><ul class="doc-list"><li>Use a unique mod ID such as <code>creator.mod-name</code>.</li><li>Increment the version when publishing an update.</li><li>Keep previews free of private information.</li><li>Only upload content you are allowed to distribute.</li><li>Document known dependencies and compatibility.</li></ul></article><article class="doc-card large"><h2>Current v1 limitation</h2><p>Fox Mod Portal v1 is the public catalog and creator workflow. It does not claim that TAVR currently accepts external content. Runtime integration is a separate technical project.</p></article></section></main><footer class="footer"><div><strong>Fox Mod Portal</strong><span>v1.0</span></div><nav><a href="privacy.html">Privacy</a><a href="about.html">About</a></nav><p class="footer-note">I don’t take credit for any mod posted here; every mod belongs to its creator. Mods are not scanned or analyzed before posting (at the moment), so be careful what you download.</p></footer></div><script src="app.js"></script></body></html>
+<!doctype html>
+    <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>Documentation — Fox Mod Portal</title>
+      <meta name="description" content="Fox Mod Portal documentation and submission notes.">
+      <link rel="icon" href="favicon.svg" type="image/svg+xml">
+      <link rel="stylesheet" href="styles.css">
+    </head>
+    <body data-page="docs" class="">
+      <div class="site-shell">
+        <header class="topbar">
+  <a class="brand" href="index.html" aria-label="Fox Mod Portal home">
+    <span class="brand-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+        <path d="M4 7l4-3 4 3 4-3 4 3-2 11-6 4-6-4-2-11z"></path>
+        <path d="M9 13h6"></path>
+        <path d="M10 11.5h.01"></path>
+        <path d="M14 11.5h.01"></path>
+      </svg>
+    </span>
+    <span class="brand-copy">
+      <strong>FOX MOD PORTAL</strong>
+      <small>Community mods for Tactical Assault VR</small>
+    </span>
+  </a>
+  <nav class="nav" aria-label="Primary navigation">
+    <a href="index.html">Home</a>
+    <a href="mods.html">Browse</a>
+    <a href="submit.html">Submit</a>
+    <a class="active" href="docs.html">Docs</a>
+    <a href="about.html">About</a>
+  </nav>
+  <a class="nav-cta" href="submit.html">Submit a mod</a>
+</header>
+
+        <main>
+              <section class="page-hero">
+            <p class="kicker">DOCUMENTATION</p>
+            <h1>Mod format and submission notes</h1>
+            <p>
+              Fox Mod Portal uses a simple catalog and a simple submission packet. It keeps the structure readable and easy to update.
+            </p>
+          </section>
+
+          <section class="doc-grid">
+            <article class="doc-card">
+              <h2>.tamod package</h2>
+              <pre><code>MyMod.tamod
+          ├── manifest.json
+          ├── preview.png
+          └── content/
+              ├── maps/
+              ├── enemies/
+              ├── weapons/
+              └── assets/</code></pre>
+            </article>
+
+            <article class="doc-card">
+              <h2>Manifest example</h2>
+              <pre><code>{
+            "id": "fox.urban-raid",
+            "name": "Urban Raid",
+            "version": "1.0.0",
+            "author": "Fox",
+            "type": "Map",
+            "game": "Tactical Assault VR",
+            "platform": ["Quest"],
+            "description": "A CQB warehouse scenario."
+          }</code></pre>
+            </article>
+
+            <article class="doc-card">
+              <h2>Submission packet</h2>
+              <p>The submission form exports JSON. That packet can be stored, shared, or copied into your own review workflow.</p>
+              <ul class="doc-list">
+                <li>Mod name</li>
+                <li>Creator name</li>
+                <li>Category</li>
+                <li>Version</li>
+                <li>Description</li>
+                <li>Download link</li>
+              </ul>
+            </article>
+
+            <article class="doc-card">
+              <h2>Catalog rules</h2>
+              <ul class="doc-list">
+                <li>Keep titles short and specific.</li>
+                <li>Document dependencies when you add them.</li>
+                <li>Use the same creator name every time.</li>
+                <li>Update the version number for each release.</li>
+              </ul>
+            </article>
+          </section>
+        </main>
+        <footer class="footer">
+  <div class="footer-left">
+    <strong>Fox Mod Portal</strong>
+    <span>v2</span>
+  </div>
+  <nav class="footer-nav" aria-label="Footer navigation">
+    <a href="privacy.html">Privacy</a>
+    <a href="docs.html">Documentation</a>
+    <a href="about.html">About</a>
+    <a href="owner.html">Catalog editor</a>
+  </nav>
+</footer>
+
+      </div>
+      <script src="app.js"></script>
+      <script src="owner.js"></script>
+    </body>
+    </html>
